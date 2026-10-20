@@ -1,0 +1,174 @@
+// Rap movie detail
+// - Title/meta centered full width
+// - Overview: one label per pre-wrapped line (ol1..ol8), left-aligned
+// - Files: name left, size right (duration), detail sub-line left
+
+widget(container_y, {
+  padding: [1em, 1.5em, 1em, 1.5em];
+  spacing: 0.35em;
+
+  // ---- Centered header ----
+  widget(label, {
+    caption: $self.model.metadata.title;
+    sizeScale: 1.7;
+    color: 1;
+    align: center;
+    filterConstraintX: true;
+  });
+
+  widget(label, {
+    hidden: isVoid($self.model.metadata.subtitle);
+    caption: $self.model.metadata.subtitle;
+    sizeScale: 1.05;
+    color: 0.85;
+    align: center;
+    filterConstraintX: true;
+  });
+
+  widget(dummy, {
+    height: 0.6em;
+  });
+
+  // ---- Body ----
+  widget(container_x, {
+    spacing: 1.5em;
+    weight: 1;
+
+    widget(image, {
+      hidden: isVoid($self.model.metadata.icon);
+      source: $self.model.metadata.icon;
+      height: 20em;
+      aspectConstraint: true;
+      align: top;
+    });
+
+    widget(container_y, {
+      spacing: 0.05em;
+      weight: 1;
+      filterConstraintX: true;
+
+      // Overview lines (left-aligned). Empty slots hide.
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol1) || $self.model.metadata.ol1 == "";
+        caption: $self.model.metadata.ol1;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol2) || $self.model.metadata.ol2 == "";
+        caption: $self.model.metadata.ol2;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol3) || $self.model.metadata.ol3 == "";
+        caption: $self.model.metadata.ol3;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol4) || $self.model.metadata.ol4 == "";
+        caption: $self.model.metadata.ol4;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol5) || $self.model.metadata.ol5 == "";
+        caption: $self.model.metadata.ol5;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+      widget(label, {
+        hidden: isVoid($self.model.metadata.ol6) || $self.model.metadata.ol6 == "";
+        caption: $self.model.metadata.ol6;
+        sizeScale: 1.0;
+        color: 0.9;
+        align: left;
+        filterConstraintX: true;
+      });
+
+      widget(dummy, {
+        height: 0.5em;
+      });
+
+      widget(label, {
+        caption: $self.model.metadata.filesHeader;
+        sizeScale: 1.2;
+        color: 0.75;
+        align: left;
+        height: 1.4em;
+      });
+
+      widget(list_y, {
+        chaseFocus: true;
+        spacing: 0.2em;
+        weight: 1;
+        filterConstraintX: true;
+
+        cloner($self.model.nodes, container_z, {
+          height: 3.4em;
+          focusable: 0.5;
+          focusOnClick: true;
+          filterConstraintX: true;
+
+          widget(quad, {
+            color: 1;
+            alpha: select(isFocused(), 0.16, select(isHovered(), 0.08, 0));
+          });
+
+          widget(container_x, {
+            padding: [0.3em, 0.6em, 0.3em, 0.6em];
+            spacing: 0.8em;
+            filterConstraintX: true;
+
+            // Left: filename + detail sub-line
+            widget(container_y, {
+              weight: 1;
+              filterConstraintX: true;
+              spacing: 0.1em;
+              align: center;
+
+              widget(label, {
+                caption: $self.metadata.title;
+                sizeScale: 1.0;
+                color: select(isFocused(), 1, 0.9);
+                align: left;
+                filterConstraintX: true;
+              });
+
+              widget(label, {
+                hidden: isVoid($self.metadata.description);
+                caption: $self.metadata.description;
+                sizeScale: 0.85;
+                color: 0.65;
+                align: left;
+                filterConstraintX: true;
+              });
+            });
+
+            // Right: file size (from duration field)
+            widget(label, {
+              hidden: isVoid($self.metadata.duration);
+              caption: $self.metadata.duration;
+              sizeScale: 0.95;
+              color: select(isFocused(), 1, 0.8);
+              align: right;
+            });
+          });
+
+          onEvent(activate, navOpen($self.url, void, $self, $parent.model, void, $parent.url));
+        });
+      });
+    });
+  });
+});

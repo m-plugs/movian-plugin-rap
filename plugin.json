@@ -1,0 +1,12 @@
+{
+  "type": "ecmascript",
+  "apiversion": 2,
+  "id": "rap",
+  "title": "Rap",
+  "synopsis": "Browse and play your self-hosted movie library",
+  "description": "Browse movies and TV shows indexed by your personal media server: search, genre browsing, recently added/uploaded, and direct playback of Fshare and NAS-backed media.",
+  "version": "1.1.0",
+  "author": "tvhung83",
+  "icon": "icon.png",
+  "file": "rap.js"
+}

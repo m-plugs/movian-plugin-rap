@@ -1,0 +1,21 @@
+// Rap home — sectioned list using skin item rows
+widget(container_z, {
+  widget(container_y, {
+    padding: [1em, 1.5em, 1em, 1.5em];
+
+    widget(list_y, {
+      chaseFocus: true;
+      spacing: 0.15em;
+
+      cloner($self.model.nodes, loader, {
+        selectOnFocus: true;
+        selectOnHover: true;
+        time: 0.1;
+        effect: blend;
+        noInitialTransform: true;
+        alt: "skin://items/list/default.view";
+        source: "skin://items/list/" + $self.type + ".view";
+      });
+    });
+  });
+});
